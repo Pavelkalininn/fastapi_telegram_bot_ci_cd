@@ -7,7 +7,7 @@ from models import ModelMessage
 from sqlmodel import Session
 from starlette.responses import JSONResponse
 
-HELP = """Привет, я могу отличить кота от хлеба! 
+HELP = """Привет, я могу отличить кота от хлеба!
 Объект перед тобой квадратный?"""
 
 YES = ['да', 'конечно', 'ага', 'пожалуй']
@@ -41,20 +41,20 @@ def text_generator(chat_id: int, message: str):
         if chat_id in second_message_id:
             second_message_id.remove(chat_id)
         return HELP
-    text = NOT_UNDERSTAND
     yes_in_message = message.lower() in YES
     not_in_message = message.lower() in NO
-    if (chat_id in second_message_id
+    if (
+            chat_id in second_message_id
             and (yes_in_message or not_in_message)
-    ):
+       ):
         second_message_id.remove(chat_id)
-        text = CAT if yes_in_message else BREAD
+        return CAT if yes_in_message else BREAD
     elif yes_in_message:
         second_message_id.append(chat_id)
-        text = IS_HAVE_EARS
+        return IS_HAVE_EARS
     elif not_in_message:
-        text = CAT
-    return text
+        return CAT
+    return NOT_UNDERSTAND
 
 
 @app.get("/{telegram_id}/{text}/")

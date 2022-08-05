@@ -8,4 +8,3 @@ class ModelMessage(Model):
     telegram_id = Column(Integer)
     text = Column(String)
     created_time = Column(DateTime)
-

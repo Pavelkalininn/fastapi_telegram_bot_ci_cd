@@ -33,14 +33,16 @@ class BotExceptionHandler(ExceptionHandler):
 
 def check_tokens():
     """Проверка наличия токена в переменных окружения."""
-    if TELEGRAM_TOKEN:
-        return True
+    return True if TELEGRAM_TOKEN else False
 
 
 def get_api_answer(sender_id, message):
     """Возвращает ответ от HTTP API."""
     try:
-        api_answer = requests.get(f'http://localhost/{sender_id}/{message}/', timeout=30)
+        api_answer = requests.get(
+            f'http://localhost/{sender_id}/{message}/',
+            timeout=30
+        )
         if api_answer.status_code != HTTPStatus.OK:
             raise BotException(
                 f"Пришел некорректный ответ от сервера:"
@@ -58,7 +60,7 @@ def main():
     logging.basicConfig(
         level=logging.INFO,
         handlers=[logging.StreamHandler(sys.stdout), ],
-        format=f'%(asctime)s, %(levelname)s, %(message)s, %(name)s')
+        format='%(asctime)s, %(levelname)s, %(message)s, %(name)s')
     bot = AsyncTeleBot(TELEGRAM_TOKEN, exception_handler=ExceptionHandler())
     logging.info('Запуск бота')
 
