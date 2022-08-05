@@ -1,6 +1,5 @@
 from fastapi.testclient import TestClient
-from main import app, BREAD, IS_HAVE_EARS, HELP, NOT_UNDERSTAND
-
+from main import BREAD, HELP, IS_HAVE_EARS, NOT_UNDERSTAND, app
 
 client = TestClient(app)
 test_user = 33344455566
