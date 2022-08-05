@@ -21,3 +21,4 @@ typing_extensions==4.3.0
 uvicorn==0.18.2
 zipp==3.8.1
 sqlmodel
+pytest
