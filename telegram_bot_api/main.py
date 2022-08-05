@@ -1,14 +1,11 @@
 import datetime
 
+import database
 import uvicorn
-from fastapi import FastAPI, Depends
-
-
+from fastapi import Depends, FastAPI
+from models import ModelMessage
 from sqlmodel import Session
 from starlette.responses import JSONResponse
-
-from models import ModelMessage
-import database
 
 HELP = """Привет, я могу отличить кота от хлеба! 
 Объект перед тобой квадратный?"""

@@ -1,18 +1,17 @@
+import asyncio
 import logging
 import os
 import sys
-import asyncio
 from http import HTTPStatus
 from json import JSONDecodeError
 
 import requests
 from dotenv import load_dotenv
-from requests import RequestException
-from telebot.async_telebot import AsyncTeleBot
-from telebot import types, ExceptionHandler
-from telebot.types import Message
-
 from exceptions import BotException
+from requests import RequestException
+from telebot import ExceptionHandler, types
+from telebot.async_telebot import AsyncTeleBot
+from telebot.types import Message
 
 load_dotenv()
 

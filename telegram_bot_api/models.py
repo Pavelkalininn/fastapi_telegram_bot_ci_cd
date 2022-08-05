@@ -1,6 +1,5 @@
-from sqlalchemy import Column, Integer, String, DateTime
-
 from database import Model
+from sqlalchemy import Column, DateTime, Integer, String
 
 
 class ModelMessage(Model):

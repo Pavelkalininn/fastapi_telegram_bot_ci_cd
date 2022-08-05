@@ -11,7 +11,7 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
 
   web:
-    build: ../telegram_bot_api/
+    image: guguruge/fastapi_tg_bot:v2.11
     command: bash -c "cd ../app/telegram_bot_api/ && alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 80 --reload"
     volumes:
       - ..:/app
@@ -23,7 +23,7 @@ services:
       - db
 
   bot:
-    build: ../telegram_bot/
+    image: guguruge/tg_bot:v2.11
     env_file:
       - .env
     depends_on:
