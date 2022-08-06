@@ -4,7 +4,7 @@ services:
   db:
     image: postgres:11
     ports:
-      - ${DB_PORT}:${{ secrets.DB_PORT }}
+      - ${{ secrets.DB_PORT }}:${{ secrets.DB_PORT }}
     environment:
       - POSTGRES_USER=${{ secrets.POSTGRES_USER }}
       - POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
