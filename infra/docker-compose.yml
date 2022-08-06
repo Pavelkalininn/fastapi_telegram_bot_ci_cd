@@ -4,14 +4,16 @@ services:
   db:
     image: postgres:11
     ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+      - ${DB_PORT}:${{ secrets.DB_PORT }}
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+      - POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+      - DB_NAME=${{ secrets.DB_NAME }}
+    networks:
+      - api_db_network
 
   web:
-    image: guguruge/fastapi_tg_bot:v2.11
+    image: ${{ secrets.DOCKER_USERNAME }}/fastapi_tg_bot:latest
     command: bash -c "cd ../app/telegram_bot_api/ && alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 80 --reload"
     volumes:
       - ..:/app
@@ -21,22 +23,19 @@ services:
       - .env
     depends_on:
       - db
+    networks:
+      - api_bot_network
+      - api_db_network
 
   bot:
-    image: guguruge/tg_bot:v2.11
+    image: ${{ secrets.DOCKER_USERNAME }}/tg_bot:latest
     env_file:
       - .env
     depends_on:
       - web
+    networks:
+      - api_bot_network
 
-
-#  pgadmin:
-#    container_name: pgadmin
-#    image: dpage/pgadmin4
-#    environment:
-#      - PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org
-#      - PGADMIN_DEFAULT_PASSWORD=admin
-#    ports:
-#      - "5050:80"
-#    depends_on:
-#      - db
+networks:
+  api_bot_network:
+  api_db_network:

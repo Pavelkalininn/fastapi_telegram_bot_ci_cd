@@ -1,14 +1,34 @@
 from fastapi.testclient import TestClient
-from main import app
+from main import BREAD, HELP, IS_HAVE_EARS, NOT_UNDERSTAND, app, CAT
 
 client = TestClient(app)
+TEST_USER = 33344455566
 
 
 def test_send_message():
-    response = client.get('/33444555/test_text/')
+    response = client.get(f'/{TEST_USER}/start/')
     assert response.status_code == 200
-    assert response.json().get('telegram_id') == 33444555
-    assert response.json().get('text') == 'test_text'
+    assert response.json() == HELP
+    response = client.get(f'/{TEST_USER}/дА/')
+    assert response.json() == IS_HAVE_EARS
+    response = client.get(f'/{TEST_USER}/НеТ/')
+    assert response.json() == BREAD
+
+    client.get(f'/{TEST_USER}/start/')
+    response = client.get(f'/{TEST_USER}/дА/')
+    assert response.json() == IS_HAVE_EARS
+    response = client.get(f'/{TEST_USER}/ДА/')
+    assert response.json() == CAT
+
+    client.get(f'/{TEST_USER}/start/')
+    response = client.get(f'/{TEST_USER}/НЕТ/')
+    assert response.json() == CAT
+
+
+def test_send_wrong_text():
+    response = client.get(f'/{TEST_USER}/test_text/')
+    assert response.status_code == 200
+    assert response.json() == NOT_UNDERSTAND
 
 
 def test_bad_telegram_id():
