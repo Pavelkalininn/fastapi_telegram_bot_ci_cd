@@ -12,7 +12,6 @@ services:
 
   web:
     image: ${DOCKER_USERNAME}/fastapi_tg_bot:latest
-    command: bash -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 80 --reload"
     volumes:
       - ..:/app
     ports:
