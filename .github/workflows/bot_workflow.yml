@@ -83,6 +83,7 @@ jobs:
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env
             echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
             echo DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} >> .env
+            echo WEB_HOST=${{ secrets.WEB_HOST }} >> .env
             sudo docker-compose up -d
 
   send_message:
