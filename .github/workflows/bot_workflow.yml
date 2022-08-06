@@ -84,6 +84,7 @@ jobs:
             echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
             echo DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} >> .env
             echo WEB_HOST=${{ secrets.WEB_HOST }} >> .env
+            echo TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }} >> .env
             sudo docker-compose up -d
 
   send_message:
