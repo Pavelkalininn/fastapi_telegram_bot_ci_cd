@@ -16,7 +16,7 @@ from telebot.types import Message
 load_dotenv()
 
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
-ADMIN_ID = int(os.getenv("ADMIN_ID"))
+WEB_HOST = os.getenv("WEB_HOST")
 
 FINAL_PHRASES = [
     'Это кот а не хлеб. Не ешь его!',
@@ -32,15 +32,15 @@ class BotExceptionHandler(ExceptionHandler):
 
 
 def check_tokens():
-    """Проверка наличия токена в переменных окружения."""
-    return True if TELEGRAM_TOKEN else False
+    """Проверка наличия переменных окружения."""
+    return True if TELEGRAM_TOKEN and WEB_HOST else False
 
 
 def get_api_answer(sender_id, message):
     """Возвращает ответ от HTTP API."""
     try:
         api_answer = requests.get(
-            f'http://web/{sender_id}/{message}/',
+            f'http://{WEB_HOST}/{sender_id}/{message}/',
             timeout=30
         )
         if api_answer.status_code != HTTPStatus.OK:

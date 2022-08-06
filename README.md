@@ -9,8 +9,7 @@
     ДА: 'да', 'конечно', 'ага', 'пожалуй'
     НЕТ: 'нет', 'нет, конечно', 'ноуп', 'найн'
 
-![Workflow](https://github.com/Pavelkalininn/
-fastapi_telegram_bot_ci_cd/actions/workflows/bot_workflow.yml/badge.svg)
+![Workflow](https://github.com/Pavelkalininn/fastapi_telegram_bot_ci_cd/actions/workflows/bot_workflow.yml/badge.svg)
 
 ## Технологии
 
@@ -30,7 +29,7 @@ fastapi_telegram_bot_ci_cd/actions/workflows/bot_workflow.yml/badge.svg)
     sqlmodel
     alembic==1.8.1
 
-### Проект доступен по адресу http://51.250.108.40 или http://kalinin.hopto.org/, все дальнейшие описания запросов сделаны на этих доменах
+### Проект доступен по адресу http://51.250.108.40/ или http://kalinin.hopto.org/, все дальнейшие описания запросов сделаны на этих доменах
 ## Шаблон наполнения env-файла лежит по адресу: 
 
 [infra/example.env](./infra/example.env)
@@ -44,14 +43,29 @@ fastapi_telegram_bot_ci_cd/actions/workflows/bot_workflow.yml/badge.svg)
 после чего будет собран и запущен контейнер
 
 
-### Для остановки контейнера необходимо в папке infra выполнить:
+### Для остановки контейнеров необходимо в папке infra выполнить:
 
      docker-compose down -v
 
 
-## Документация с примерами запросов доступна по адресу:
+### Документация с примерами запросов доступна по адресу:
 
     /redoc/
+
+### Для отправки сообщения через телеграм необходимо подключится к боту "Guguruge_test" и отправить 
+
+    /start
+
+### Для отправки сообщения через HTTP - API интерфейс нужно перейти по адресу:
+
+    http://kalinin.hopto.org/{telegram_id}/{message}/
+
+где telegram_id - id отправителя (только цифры), а message - само сообщение
+
+
+### Все сообщения принятые на HTTP API (в том числе и сообщения полученные через бота) сохряняются в БД в структуре:
+
+    | id | telegram_id | text | created_time |
 
 
 
