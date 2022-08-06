@@ -3,17 +3,15 @@ version: "3"
 services:
   db:
     image: postgres:11
-    ports:
-      - ${{ secrets.DB_PORT }}:${{ secrets.DB_PORT }}
     environment:
-      - POSTGRES_USER=${{ secrets.POSTGRES_USER }}
-      - POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
-      - DB_NAME=${{ secrets.DB_NAME }}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_NAME=${DB_NAME}
     networks:
       - api_db_network
 
   web:
-    image: ${{ secrets.DOCKER_USERNAME }}/fastapi_tg_bot:latest
+    image: ${DOCKER_USERNAME}/fastapi_tg_bot:latest
     command: bash -c "cd ../app/telegram_bot_api/ && alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 80 --reload"
     volumes:
       - ..:/app
@@ -28,7 +26,7 @@ services:
       - api_db_network
 
   bot:
-    image: ${{ secrets.DOCKER_USERNAME }}/tg_bot:latest
+    image: ${DOCKER_USERNAME}/tg_bot:latest
     env_file:
       - .env
     depends_on:
