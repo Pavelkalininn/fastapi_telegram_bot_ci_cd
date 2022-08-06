@@ -27,7 +27,6 @@ services:
 
   bot:
     image: ${DOCKER_USERNAME}/tg_bot:latest
-    command: bash -c "ls && cd .. && ls"
     env_file:
       - .env
     depends_on:
