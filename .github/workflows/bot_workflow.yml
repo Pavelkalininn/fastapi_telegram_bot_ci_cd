@@ -5,8 +5,6 @@ name: cat_bread_bot
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   tests:
