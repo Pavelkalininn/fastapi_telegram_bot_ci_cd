@@ -21,6 +21,8 @@ services:
       - .env
     depends_on:
       - db
+    networks:
+      - api_bot_network
 
   bot:
     image: guguruge/tg_bot:v2.11
@@ -28,7 +30,11 @@ services:
       - .env
     depends_on:
       - web
+    networks:
+      - api_bot_network
 
+networks:
+  api_bot_network:
 
 #  pgadmin:
 #    container_name: pgadmin

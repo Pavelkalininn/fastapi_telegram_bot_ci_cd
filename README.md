@@ -9,7 +9,8 @@
     ДА: 'да', 'конечно', 'ага', 'пожалуй'
     НЕТ: 'нет', 'нет, конечно', 'ноуп', 'найн'
 
-![Workflow](https://github.com/Pavelkalininn/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
+![Workflow](https://github.com/Pavelkalininn/
+fastapi_telegram_bot_ci_cd/actions/workflows/bot_workflow.yml/badge.svg)
 
 ## Технологии
 

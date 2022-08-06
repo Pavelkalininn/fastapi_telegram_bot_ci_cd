@@ -40,7 +40,7 @@ def get_api_answer(sender_id, message):
     """Возвращает ответ от HTTP API."""
     try:
         api_answer = requests.get(
-            f'http://localhost/{sender_id}/{message}/',
+            f'http://web/{sender_id}/{message}/',
             timeout=30
         )
         if api_answer.status_code != HTTPStatus.OK:
