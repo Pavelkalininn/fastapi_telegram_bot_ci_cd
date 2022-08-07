@@ -2,7 +2,7 @@ version: "3"
 
 services:
   db:
-    image: postgres:11
+    image: postgres:14
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -20,9 +20,9 @@ services:
 
   web:
     image: ${DOCKER_USERNAME}/fastapi_tg_bot:latest
-    command: bash -c "ls && cd /app/ && ls && alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 80 --reload"
+    command: bash -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 80 --reload"
     volumes:
-      - ../telegram_bot_api:/app
+      - ..:/home/pavelkalinin/app/
     ports:
       - "80:80"
     env_file:
@@ -33,7 +33,6 @@ services:
     networks:
       - api_bot_network
       - api_db_network
-#    entrypoint: /app/entrypoint.sh
 
   bot:
     image: ${DOCKER_USERNAME}/tg_bot:latest
