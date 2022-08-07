@@ -7,23 +7,33 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - DB_NAME=${DB_NAME}
+    volumes:
+      - ./resources/db:/var/lib/postgresql/data
     networks:
       - api_db_network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $POSTGRES_USER" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   web:
     image: ${DOCKER_USERNAME}/fastapi_tg_bot:latest
-    command: bash -c "cd ../app/telegram_bot_api/ && alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 80 --reload"
+    command: bash -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 80 --reload"
     volumes:
-      - ..:/app
+      - ../telegram_bot_api:/app
     ports:
       - "80:80"
     env_file:
       - .env
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - api_bot_network
       - api_db_network
+#    entrypoint: /app/entrypoint.sh
 
   bot:
     image: ${DOCKER_USERNAME}/tg_bot:latest
