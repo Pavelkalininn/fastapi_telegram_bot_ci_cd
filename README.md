@@ -30,7 +30,7 @@
     sqlmodel
     alembic==1.8.1
 
-### Проект доступен по адресу http://51.250.108.40/ или http://kalinin.hopto.org/, все дальнейшие описания запросов сделаны на этих доменах
+### Проект доступен по адресу https://51.250.108.40/ или https://kalinin.hopto.org/, все дальнейшие описания запросов сделаны на этих доменах
 ## Шаблон наполнения env-файла лежит по адресу: 
 
 [infra/example.env](./infra/example.env)
@@ -59,7 +59,7 @@
 
 ### Для отправки сообщения через HTTP - API интерфейс нужно перейти по адресу:
 
-    http://kalinin.hopto.org/{telegram_id}/{message}/
+    https://kalinin.hopto.org/{telegram_id}/{message}/
 
 где telegram_id - id отправителя (только цифры), а message - само сообщение
 
