@@ -50,7 +50,7 @@ jobs:
         with:
           push: true
           context: telegram_bot_api
-          tags: ${{ secrets.DOCKER_USERNAME }}/fastapi_tg_bot:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/fastapi_tg_bot:v2
 
       - name: Push tg_bot to Docker Hub
         uses: docker/build-push-action@v2
